@@ -1,0 +1,8 @@
+//
+// Created by gabriel on 21/08/2025.
+//
+
+#ifndef MAIN_CLION_TRANSFORMACOES_H
+#define MAIN_CLION_TRANSFORMACOES_H
+
+#endif //MAIN_CLION_TRANSFORMACOES_H
