@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include "sis_lineares.h"
+#include "transformacoes.h"
 
 
 
@@ -27,8 +28,9 @@ int main(void) {
     // linha = 3;
     // coluna = 4;
 
+    verifica_transformacoes(linha, coluna, matriz);
 
-
+    /*
     escalonador(linha, coluna, matriz);
 
     tem_solucao = analista(linha, coluna, matriz);

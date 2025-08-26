@@ -8,6 +8,12 @@
 #include <math.h>
 
 
+/*void resolver_sistemas_lineares() {
+    escalonador();
+    analista();
+    solutionador();
+}*/
+
 void escalonador(int linha, int coluna, double matriz[linha][coluna]) {
     double fator = 0.0;
     double aux[coluna];
@@ -24,11 +30,8 @@ void escalonador(int linha, int coluna, double matriz[linha][coluna]) {
 
         if (maior_linha != pivo_atual) { //aq ele faz a troca da linha de um pivo fraco para o melhor pivo
             memcpy(aux, matriz[pivo_atual], coluna * sizeof(double)); //essa função copia um vetor para o outro
-            //matriz_aux[0] = matriz[contador_linha];
             memcpy(matriz[pivo_atual], matriz[maior_linha] , coluna * sizeof(double));
-            //matriz[contador_linha] = matriz[maior_linha];
             memcpy(matriz[maior_linha], aux, coluna * sizeof(double));
-            //matriz[maior] = matriz_aux[0];
         }
         // Se o pivô mais forte ainda for zero, não precisa eliminar nda
         if (fabs(matriz[pivo_atual][pivo_atual]) < 1e-9) {
@@ -61,7 +64,7 @@ int analista(int linha, int coluna, double matriz[linha][coluna]) {
         if (leitor == 1) {
             if (fabs(matriz[ler_linha][coluna-1]) > 1e-9) {
                 printf("Sistema Impossivel!\n");
-                return 1;
+                return 0;
             }
             linhas_nulas++;
         }
@@ -85,18 +88,29 @@ void solucionador(int linha, int coluna, double matriz[linha][coluna]) {
     int num_variaveis = coluna -1;
     double res[num_variaveis];
 
+    //Resolvendo o escalonamento feito de baixo para cima
     for (int i = num_variaveis - 1; i >= 0; i--) {
+        //buscando o pivô, que é o primeiro elemento não nulo
+        int coluna_pivo = -1;
         double soma_conhecida = 0.0;
-        for (int j = i + 1; j < num_variaveis; j++) {
-            soma_conhecida += matriz[i][j] * res[j];
+        for (int j = 0; j < num_variaveis; j++) {
+            if (fabs(matriz[i][j]) > 1e-9) {
+                coluna_pivo = j;
+                break;
+            }
         }
-        double termo_independente = matriz[i][num_variaveis];
-        double pivo = matriz[i][i];
 
-        res[i] = (termo_independente - soma_conhecida) / pivo;
+        if (coluna_pivo == -1) continue; //se a linha for nula ele pula
+
+        double soma = 0.0;
+        for (int j = coluna_pivo + 1; j < num_variaveis; j++) {
+            soma += matriz[i][j] * res[j];
+        }
+
+        res[coluna_pivo] = (matriz[i][num_variaveis] - soma) / matriz[i][coluna_pivo];
     }
 
-    printf("\n Resultados : \n");
+    printf("\n Resultados: \n");
     for (int i = 0; i < num_variaveis; i++) {
         printf("%.1lf  ", res[i]);
     }
