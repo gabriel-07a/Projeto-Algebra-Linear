@@ -364,10 +364,7 @@ void tela_para_pegar_as_transformacoes() {
 //
 
 
-
-
-
-void Det_basesmenu() {
+void tela_menu_determinacao_de_bases() {
     limpaTela();
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║                                                                                                  ║\n");
@@ -378,7 +375,6 @@ void Det_basesmenu() {
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║  [1]_ Vetores 2x2 que formam uma matriz quadrada                                                 ║\n");
     printf("║  [2]_ Vetores 3x3 que formam uma matriz quadrada                                                 ║\n");
-    printf("║  [3]_ Indefinida (Em desenvolvimento)                                                            ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
@@ -387,18 +383,47 @@ void Det_basesmenu() {
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
-    printf("║ 0 - Para sair                                                                                    ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
     printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\n");
     printf("====================================================================================================\n");
 }
 
-
-void Det_Resultado(int numero) {
+void tela_para_pegar_quant_subconjuntos() {
     limpaTela();
-    char resultado[2][30];
-    strcpy(resultado[0], "Não formam Base determinante = 0 ");
-    strcpy(resultado[1], "Formam base     determinante != 0");
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                   Determinação de Bases                                          ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║  Digite a quantidade de subconjuntos:                                                            ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║  Exemplo: 3,                                                                                     ║\n");
+    printf("║           2,                                                                                     ║\n");
+    printf("║           4                                                                                      ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("====================================================================================================\n");
+}
+
+void tela_para_resultado_da_determinante(int numero) {
+    limpaTela();
+    char resultado[30];
+    if (numero == 1) {
+        strcpy(resultado, "Formam base determinante != 0    ");
+    }else {
+        strcpy(resultado, "Não formam Base determinante = 0 ");
+    }
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║                                                                                                  ║\n");
@@ -411,7 +436,7 @@ void Det_Resultado(int numero) {
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
-    printf("║                                   %s                               ║\n", resultado[numero]);
+    printf("║                                   %s                              ║\n", resultado);
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
@@ -427,9 +452,66 @@ void Det_Resultado(int numero) {
 
 
 
-//essa é do autovalores
-//o mesmo nome das variáveis está aq pra ficar mais organizado e ficar autoexplicativo
-void aAtelas(double lambda[2], Matriz autovetores) {
+//
+//telas para autovalores e autovetores
+//
+
+
+void funcao_para_polular_matrizez_para_autovalores(Matriz *matriz,int nome){
+    double numero, count=0;
+    for(int i = 0; i < 2; i++) {
+        for(int j = 0; j < 2; j++) {
+            printf("Matriz [%d],[%d] = ", i+1, j+1);
+            scanf("%lf", &matriz->dados[i][j]);
+            numero = matriz->dados[i][j];
+            tela_para_popular_matrizes_para_autovalores(numero,nome, count);
+            count++;
+        }
+    }
+}
+void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, int count) {
+    double vetor_para_imprimir_a_matriz[5];
+    limpaTela();
+    vetor_para_imprimir_a_matriz[count] = numeroMatriz;
+
+
+    //fica meio bugadinho vendo aqui mas na hora de printar vai dar certo. que ele vai reservar
+    // tem 98 "="
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                      Sistemas Lineares 2x2                                       ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║ Digite sua matriz:                                                                               ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                     +-------+-------+                                            ║\n");
+    printf("║                                     ");
+    print_with_padding(vetor_para_imprimir_a_matriz[0], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[1], 8);
+    printf("|                                            ║\n");
+
+    printf("║                                     +-------+-------+                                            ║\n");
+    printf("║                                     ");
+    print_with_padding(vetor_para_imprimir_a_matriz[2], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[4], 8);
+    printf("|                                            ║\n");
+
+    printf("║                                     +-------+-------+                                            ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+
+    printf("\n");
+    printf("====================================================================================================\n");
+
+}
+
+void tela_para_resultado_de_autovalore_vetores(double lambda[2], Matriz autovetores) {
     limpaTela();
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
@@ -464,6 +546,16 @@ void aAtelas(double lambda[2], Matriz autovetores) {
     printf("====================================================================================================\n");
 }
 
+
+
+
+//
+//telas para diagonalização de matrizes
+//
+
+
+
+
 void menuDiagonalizacao2x2(double lambda[2]) {
     limpaTela();
     // tem 98 "="
@@ -474,15 +566,15 @@ void menuDiagonalizacao2x2(double lambda[2]) {
     printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\n");
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║ Os autovalores são %7.2lf e %7.2lf                                                 ║\n", lambda[0],
+    printf("║ Os autovalores são %7.2lf e %7.2lf                                                             ║\n", lambda[0],
            lambda[1]); //tem que ficar assim mesmo por conta das casa que ele vai
     //mas é bom ver se isso aq nao vai dar mais espaço ou espaço de menos
     printf("║                                                                                                  ║\n");
     printf("║ Matriz diagonalizada:                                                                            ║\n");
     printf("║                                                                                                  ║\n");
-    printf("║                     %7.2lf |    0                                                         ║\n",
+    printf("║                     %7.2lf |    0                                                               ║\n",
            lambda[0]);
-    printf("║                        0   |    %7.2lf                                                    ║\n",
+    printf("║                        0   |    %7.2lf                                                          ║\n",
            lambda[1]);
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");

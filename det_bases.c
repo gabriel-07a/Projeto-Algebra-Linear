@@ -6,16 +6,28 @@
 #include "det_bases.h"
 
 #include "struct_matriz.h"
+#include "telas.h"
 #define EPS 1e-9
 
 
 void resolver_determinacao() {
-    int ordem, quant_subconjuntos;
+    int ordem, quant_subconjuntos, resposta_do_usuario;
     double res_da_determinante;
-    printf("Informe a dimensão do espaco (2 ou 3): ");
-    scanf("%d", &ordem);
-    printf("Informe a quantidade de subconjuntos: ");
+    do {
+        tela_menu_determinacao_de_bases();
+        scanf("%d", &resposta_do_usuario);
+        if (resposta_do_usuario == 1) {
+            ordem = 2;
+        }else if (resposta_do_usuario == 2) {
+            ordem = 3;
+        }else if (resposta_do_usuario == 0) {
+            return;
+        }
+    } while (resposta_do_usuario < 0 || resposta_do_usuario > 2);
+
+    tela_para_pegar_quant_subconjuntos();
     scanf("%d", &quant_subconjuntos);
+
     if (quant_subconjuntos < ordem) {
         printf("Não forma uma base, pois a dimensao eh R%d e tem %d vetores.\n", ordem, quant_subconjuntos);
     }else if (quant_subconjuntos > ordem) {
@@ -25,12 +37,12 @@ void resolver_determinacao() {
         transformar_vetor_em_matriz(&matriz);
         res_da_determinante = calcular_determinante(&matriz);
         if(res_da_determinante > EPS) {
-            printf("Esse conjunto eh base para R%d.\n", ordem);
+            tela_para_resultado_da_determinante(1);
         }else {
-            printf("Esse conjunto nao é uma base para R%d.\n", ordem);
+            tela_para_resultado_da_determinante(0);
         }
-
         destruir_matriz(&matriz);
+
     }
 
 
@@ -85,28 +97,3 @@ double calcular_determinante(Matriz *matriz) {
     return det;
 }
 
-/*
-int main() {
-    int ordem;
-
-    printf("Informe a dimensão dos vetores (2 ou 3): ");
-    scanf("%d", &ordem);
-    double matriz[3][3];
-    if(ordem != 2 && ordem != 3) {
-        printf("Ordem inválida. Somente 2x2 ou 3x3 são aceitas.\n");
-        return 1;
-    }
-
-
-    transformar_vetor_em_matriz(ordem,matriz);
-
-    double det = calcular_determinante(ordem, matriz);
-
-    if(det != 0) {
-        printf("É uma base.\n");
-    }else {
-        printf("Não é uma base.\n");
-    }
-    return 0;
-}
-*/

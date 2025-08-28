@@ -18,7 +18,7 @@ void resolver_diagonalizacao() {
     Matriz matriz = criar_matriz(2,2);
     Matriz autovetores = criar_matriz(2,2);
 
-    popular_matriz_2x2(&matriz, 4);
+    funcao_para_polular_matrizez_para_autovalores(&matriz, 2);
 
     calcular_autovalores(lambda, matriz);
 

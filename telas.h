@@ -25,13 +25,25 @@ void tela_verificacao_para_pegar_dimensoes();
 void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz);
 void tela_para_pegar_as_transformacoes();
 
+//telas para determinação de bases
+void tela_menu_determinacao_de_bases();
+void tela_para_pegar_quant_subconjuntos();
+void tela_para_resultado_da_determinante(int numero);
+
+//telas para autovalores e autovetores
+void funcao_para_polular_matrizez_para_autovalores(Matriz *matriz,int nome);
+void tela_para_resultado_de_autovalore_vetores(double lambda[2], Matriz autovetores);
+void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, int count);
+
+
+
 void print_with_padding(double num, int width);
 void limpaTela();
 void menuPrincipal();
 
-void Det_basesmenu();
-void Det_Resultado(int numero);
-void aAtelas(double lambda[2], Matriz autovetores);
+
+
+
 void menuDiagonalizacao2x2(double lambda[2]);
 
 #endif //MAIN_CLION_TELAS_H

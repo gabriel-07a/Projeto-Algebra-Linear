@@ -16,7 +16,7 @@ void resolver_autovalores_autovetores() {
     Matriz matriz = criar_matriz(2, 2);
     Matriz autovetores = criar_matriz(2, 2);
 
-    popular_matriz_2x2(&matriz, 4);
+    funcao_para_polular_matrizez_para_autovalores(&matriz, 4);
 
     int num_autovalores_reais = calcular_autovalores(resposta_autovalores, matriz);
     if (num_autovalores_reais < 2) {
@@ -29,7 +29,7 @@ void resolver_autovalores_autovetores() {
 
     calcular_autovetor(matriz, &autovetores, resposta_autovalores);
 
-    aAtelas(resposta_autovalores, autovetores);
+    tela_para_resultado_de_autovalore_vetores(resposta_autovalores, autovetores);
     destruir_matriz(&matriz);
     destruir_matriz(&autovetores);
 }
