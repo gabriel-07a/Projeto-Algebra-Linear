@@ -15,5 +15,7 @@ add_executable(main_clion main.c
         autovalores_vetores.c
         autovalores_vetores.h
         struct_matriz.c
-        struct_matriz.h)
+        struct_matriz.h
+        telas.c
+        telas.h)
 target_link_libraries(main_clion PRIVATE m)

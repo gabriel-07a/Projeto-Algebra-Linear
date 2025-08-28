@@ -26,7 +26,7 @@ void resolver_verificacoes() {
         }
     }
 
-    verifica_transformacoes(matriz);
+    verifica_transformacoes(matriz, dimensao_r_inicial, dimensao_r_final);
 
     destruir_matriz(&matriz);
 }
@@ -52,28 +52,28 @@ int contar_pivos(Matriz m) {
 }
 
 
-void verifica_transformacoes(Matriz matriz) {
+void verifica_transformacoes(Matriz matriz, int r_inicial, int r_final) {
     escalonador(&matriz);
     int quant_pivos = contar_pivos(matriz);
 
+    printf("A transformacao de R%d em R%d:\n", r_inicial, r_final);
 
-    printf("Quant de pivos: %d\n", quant_pivos);
     //agr é só ver se tem o msm tanto de pivos e colunas
     if (matriz.colunas == quant_pivos) {
-        printf("Essa matriz é injetora!\n");
+        printf("Eh injetora!\n", r_inicial, r_final);
     }else {
-        printf("Essa matriz não é injetora\n");
+        printf("Nao é injetora!\n", r_inicial, r_final);
     }
 
 
     if (matriz.linhas == quant_pivos) {
-        printf("Essa matriz é sobrejetora!\n");
+        printf("Eh sobrejetora!\n", r_inicial, r_final);
     }else {
-        printf("Essa matriz não é sobrejetora!\n");
+        printf("Nao é sobrejetora!\n", r_inicial, r_final);
     }
 
     if (matriz.linhas == quant_pivos && matriz.colunas == quant_pivos) {
-        printf("Portanto essa matriz é bijetora!\n");
+        printf("Portanto essa transformacao é bijetora!\n");
     }
 
 

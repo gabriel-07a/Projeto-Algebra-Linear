@@ -8,13 +8,18 @@
 
 #define EPS 1e-9
 
-void popularDois(double matriz[2][2],int nome){
+void resolver_autovalores_autovetores() {
+
+}
+
+void popular_matriz_2x2(double matriz[2][2],int nome){
     double numero;
     for(int i = 0; i < 2; i++) {
         for(int j = 0; j < 2; j++) {
             printf("Matriz [%d],[%d] = ", i+1, j+1);
             scanf("%lf", &matriz[i][j]);
             numero = matriz[i][j];
+            doisTela(numero, nome);
 
         }
     }

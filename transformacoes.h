@@ -7,7 +7,7 @@
 #include "struct_matriz.h"
 
 void resolver_verificacoes();
-void verifica_transformacoes(Matriz matriz);
+void verifica_transformacoes(Matriz matriz, int r_inicial, int r_final);
 int contar_pivos(Matriz m);
 
 #endif //MAIN_CLION_TRANSFORMACOES_H
