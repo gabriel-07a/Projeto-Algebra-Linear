@@ -9,6 +9,8 @@
 #include <string.h>
 #include <unistd.h> // Para usleep()
 
+#include "struct_matriz.h"
+
 /**/
 //CORES DE TEXTO
 #define WHITE   "\x1b[37m"
@@ -341,7 +343,7 @@ limpaTela();
 
 //essa é do autovalores
 //o mesmo nome das variáveis está aq pra ficar mais organizado e ficar autoexplicativo
-void aAtelas(double lambda[2], double autovetores[2][2]) {
+void aAtelas(double lambda[2], Matriz autovetores) {
     limpaTela();
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
@@ -356,16 +358,16 @@ void aAtelas(double lambda[2], double autovetores[2][2]) {
     //mas é bom ver se isso aq nao vai dar mais espaço ou espaço de menos
     printf("║ Para lambda_1:                                                                                   ║\n");
     printf("║                       %7.2lf  |                                                     ║\n",
-           autovetores[0][0]);
+           autovetores.dados[0][0]);
     printf("║                       %7.2lf  |                                                     ║\n",
-           autovetores[1][0]);
+           autovetores.dados[1][0]);
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║ Para lambda_2:                                                                                   ║\n");
     printf("║                       %7.2lf  |                                                     ║\n",
-           autovetores[0][1]);
+           autovetores.dados[0][1]);
     printf("║                       %7.2lf  |                                                     ║\n",
-           autovetores[1][1]);
+           autovetores.dados[1][1]);
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");

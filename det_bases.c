@@ -29,7 +29,11 @@ void resolver_determinacao() {
         }else {
             printf("Esse conjunto nao é uma base para R%d.\n", ordem);
         }
+
+        destruir_matriz(&matriz);
     }
+
+
 
 }
 
