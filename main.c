@@ -13,13 +13,13 @@
 int main() {
     char menu_principal[29];// tem que ser 29 por conta do \0 e 28 é
     // pra ficar no meio
-    strcpy(menu_principal, "Menu Principal");
+
 
     int escolha;
     int nome;//esse é o nome que vai aparecer lá em cima
     do{
         int repetir;
-        menuPrincipal();
+        exibir_tela_estatica("menu_principal");
         scanf("%d", &escolha);
         switch (escolha) {
             case 1:

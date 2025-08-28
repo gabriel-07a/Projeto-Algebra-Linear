@@ -101,31 +101,44 @@ void limpaTela() {
 #endif
 }
 
-void menuPrincipal() {
+void exibir_tela_estatica(char* nome_tela) {
     limpaTela();
-    // tem 98 "="
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                        MENU PRINCIPAL                                            ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║  [1]_ Sistemas Lineares                                                                          ║\n");
-    printf("║  [2]_ Verificação de injetividade                                                                ║\n");
-    printf("║  [3]_ Determinação de Bases                                                                      ║\n");
-    printf("║  [4]_ Autovetores e Autovalores                                                                  ║\n");
-    printf("║  [5]_ Diagonalização de Matrizes 2x2                                                             ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║ 0 - Para sair                                                                                    ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("====================================================================================================\n");
+    FILE *arquivo;
+    char linha[200];
+    char tela_procurada[100];
+    int tela_encontrada =0;
+
+    sprintf(tela_procurada, "{Tela:%s}\n", nome_tela);
+
+    arquivo = fopen("telas_menu.txt", "r");
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo: telas_menu.txt");
+        return;
+    }
+
+    limpaTela();
+    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+        if (tela_encontrada == 1) {
+            // ...verificamos se a linha atual é o começo de OUTRA tela.
+            // A função strstr verifica se uma string contém outra.
+            if (strstr(linha, "{Tela:") != NULL) {
+                break; // Se for, paramos de imprimir
+            }
+            // Se não for o começo de outra tela, apenas imprimimos a linha.
+            printf("%s", linha);
+        }
+        // Se ainda não encontramos a nossa tela...
+        else {
+            // ...verificamos se a linha atual é a tag que procuramos.
+            // A função strcmp compara duas strings. Retorna 0 se forem iguais.
+            if (strcmp(linha, tela_procurada) == 0) {
+                tela_encontrada = 1; // Encontramos! Na próxima iteração, começaremos a imprimir.
+            }
+        }
+    }
+
+    fclose(arquivo);
+
 }
 
 //
@@ -133,32 +146,6 @@ void menuPrincipal() {
 //
 
 
-void tela_sis_lineares_para_pegar_tamanho() {
-    limpaTela();
-    // tem 98 "="
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                          Sistemas Lineares                                       ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║  Digite o tamanho do sistema linear:                                                             ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║  Exemplo: 2x2 (2 por 2),                                                                         ║\n");
-    printf("║           3x3 (3 por 3),                                                                         ║\n");
-    printf("║           nxn (n por n)                                                                          ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("====================================================================================================\n");
-}
 
 
 void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
@@ -293,34 +280,10 @@ void tela_para_popular_matriz_3x3(double numeroMatriz, int nome, int count) {
 // Telas para verificação de injetividade
 //
 
-void tela_verificacao_para_pegar_dimensoes() {
-    limpaTela();
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                Verificação de Injetividade, Sobrejetividade e Bijetividade                       ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║  Digite a dimensão do R inicial e do R final:                                                    ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║  Exemplo: 3 2,                                                                                   ║\n");
-    printf("║           2 2,                                                                                   ║\n");
-    printf("║           3 3                                                                                    ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("====================================================================================================\n");
-}
+
 
 void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz) {
-    tela_para_pegar_as_transformacoes();
+    exibir_tela_estatica("verificacao_injetividade_pegar_transformacoes");
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
             scanf("%lf", &matriz->dados[i][j]);
@@ -329,33 +292,6 @@ void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz
     }
 
 }
-void tela_para_pegar_as_transformacoes() {
-    limpaTela();
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                Verificação de Injetividade, Sobrejetividade e Bijetividade                       ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║  Digite as trasformacoes lineares:                                                               ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║  Exemplo: para R(inicial) = 2 e R(final) = 3: x y                                                ║\n");
-    printf("║                                               x y                                                ║\n");
-    printf("║                                               x y                                                ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║           para R(inicial) = 3 e R(final) = 3: x y z                                              ║\n");
-    printf("║                                               x y z                                              ║\n");
-    printf("║                                               x y z                                              ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("====================================================================================================\n");
-}
-
-
 
 
 
@@ -364,57 +300,6 @@ void tela_para_pegar_as_transformacoes() {
 //
 
 
-void tela_menu_determinacao_de_bases() {
-    limpaTela();
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                   Determinação de Bases                                          ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║  [1]_ Vetores 2x2 que formam uma matriz quadrada                                                 ║\n");
-    printf("║  [2]_ Vetores 3x3 que formam uma matriz quadrada                                                 ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("====================================================================================================\n");
-}
-
-void tela_para_pegar_quant_subconjuntos() {
-    limpaTela();
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                   Determinação de Bases                                          ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║  Digite a quantidade de subconjuntos:                                                            ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║  Exemplo: 3,                                                                                     ║\n");
-    printf("║           2,                                                                                     ║\n");
-    printf("║           4                                                                                      ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("====================================================================================================\n");
-}
 
 void tela_para_resultado_da_determinante(int numero) {
     limpaTela();

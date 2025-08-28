@@ -31,7 +31,8 @@
 void resolver_sistemas_lineares() {
     int tamanho_linha, tamanho_coluna;
     //
-    tela_sis_lineares_para_pegar_tamanho();
+    exibir_tela_estatica("sistemas_lineares");
+
     scanf("%dx%d", &tamanho_linha, &tamanho_coluna);
     //aq ele basicamente pega o tamanho (linha por coluna) do sistema
 

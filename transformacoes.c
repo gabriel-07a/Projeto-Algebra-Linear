@@ -13,7 +13,7 @@
 
 void resolver_verificacoes() {
     int dimensao_r_inicial, dimensao_r_final;
-    tela_verificacao_para_pegar_dimensoes();
+    exibir_tela_estatica("verificacao_injetividade_pegar_dimensoes");
     scanf("%d %d", &dimensao_r_inicial, &dimensao_r_final);
 
 

@@ -14,7 +14,7 @@ void resolver_determinacao() {
     int ordem, quant_subconjuntos, resposta_do_usuario;
     double res_da_determinante;
     do {
-        tela_menu_determinacao_de_bases();
+        exibir_tela_estatica("menu_determinacao_bases");
         scanf("%d", &resposta_do_usuario);
         if (resposta_do_usuario == 1) {
             ordem = 2;
@@ -25,7 +25,7 @@ void resolver_determinacao() {
         }
     } while (resposta_do_usuario < 0 || resposta_do_usuario > 2);
 
-    tela_para_pegar_quant_subconjuntos();
+    exibir_tela_estatica("subconjuntos_determinacao_bases");
     scanf("%d", &quant_subconjuntos);
 
     if (quant_subconjuntos < ordem) {

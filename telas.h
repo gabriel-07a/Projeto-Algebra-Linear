@@ -8,7 +8,9 @@
 
 void loading();
 void inicializa_titulos(char titulos[][30]);
-void limpaVetor(double vetor[], int tam);
+
+
+void exibir_tela_estatica(char* nome_tela);
 
 //telas para popular matrizes
 void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome);
@@ -18,16 +20,16 @@ void funcao_para_popular_matriz_3x3(Matriz *matriz, int nome);
 void tela_para_popular_matriz_3x3(double numeroMatriz, int nome, int count);
 
 //telas para sistemas lineares
-void tela_sis_lineares_para_pegar_tamanho();
+//void tela_sis_lineares_para_pegar_tamanho();
 
 //telas para verificações
-void tela_verificacao_para_pegar_dimensoes();
+//void tela_verificacao_para_pegar_dimensoes();
 void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz);
-void tela_para_pegar_as_transformacoes();
+//void tela_para_pegar_as_transformacoes();
 
 //telas para determinação de bases
-void tela_menu_determinacao_de_bases();
-void tela_para_pegar_quant_subconjuntos();
+//void tela_menu_determinacao_de_bases();
+//void tela_para_pegar_quant_subconjuntos();
 void tela_para_resultado_da_determinante(int numero);
 
 //telas para autovalores e autovetores
@@ -35,15 +37,12 @@ void funcao_para_polular_matrizez_para_autovalores(Matriz *matriz,int nome);
 void tela_para_resultado_de_autovalore_vetores(double lambda[2], Matriz autovetores);
 void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, int count);
 
-
+//telas para diagonalização de matrizes
+void menuDiagonalizacao2x2(double lambda[2]);
 
 void print_with_padding(double num, int width);
 void limpaTela();
 void menuPrincipal();
 
-
-
-
-void menuDiagonalizacao2x2(double lambda[2]);
 
 #endif //MAIN_CLION_TELAS_H
