@@ -13,5 +13,7 @@ add_executable(main_clion main.c
         diagonalizacao_matriz.c
         diagonalizacao_matriz.h
         autovalores_vetores.c
-        autovalores_vetores.h)
+        autovalores_vetores.h
+        struct_matriz.c
+        struct_matriz.h)
 target_link_libraries(main_clion PRIVATE m)

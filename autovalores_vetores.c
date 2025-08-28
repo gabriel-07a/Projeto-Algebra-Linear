@@ -74,12 +74,7 @@ void aVetorAvalor2(){
         /*printf("Autovetor para lambda=%.2lf: (%.2lf, %.2lf)\n", lambda[i], autovetores[0][i], autovetores[1][i]);*/
     }
 
-    aAtelas(lambda, autovetores); // essa é a tela printada
+    //aAtelas(lambda, autovetores); // essa é a tela printada
 }
 
 
-int main() {
-    aVetorAvalor2();
-
-    return 0;
-}

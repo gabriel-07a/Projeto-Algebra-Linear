@@ -1,7 +1,137 @@
 
 #include <stdio.h>
+#include <string.h>
+
 #include "sis_lineares.h"
 #include "transformacoes.h"
+
+
+int main() {
+    resolver_sistemas_lineares();
+    resolver_verificacoes();
+
+    /*
+    char menu_principal[29];// tem que ser 29 por conta do \0 e 28 é
+    // pra ficar no meio
+    strcpy(menu_principal, "Menu Principal");
+    /* menu_top(menu_principal);
+    int escolha;
+    int nome;//esse é o nome que vai aparecer lá em cima
+    do{
+        menuPrincipal();
+        scanf("%d", &escolha);
+        switch (escolha) {
+            case 1:
+                void loading();
+                int repetir;
+                do{
+                limpaTela();
+
+                resolver_sistemas_lineares();
+                printf("\n");
+                printf("deseja repetir? 0 para parar\n");
+                scanf("%d", &repetir);
+                }while (repetir!=0);
+                limpaTela();
+                break;
+
+            case 2:
+                void loading();
+                int repetir;
+                do{
+                limpaTela();
+
+                resolver_verificacoes();
+                printf("\n");
+                printf("deseja repetir? 0 para parar\n");
+                scanf("%d", &repetir);
+                }while (repetir!=0);
+                limpaTela();
+                break;
+
+
+            case 3:
+                void loading();
+
+                resolver_determinacao();
+
+                determ_bases();
+                //eu suspeito que tá faltando um negocio pra sair daq kkk q se nao vai dar loop infinito
+
+            //esse é o determinação de bases.
+                /* code
+                break;
+
+            case 4:
+                void loading();
+                int repetir;
+                nome = 4;
+                do{
+
+                resolver_autovalores_autovetores();
+                printf("\n");
+                printf("\n");
+                printf("\n");
+                printf("deseja repetir? 0 para parar\n");
+                scanf("%d", &repetir);
+                }while(repetir!=0);
+                    /* code
+                limpaTela();
+                break;
+
+            case 5:
+                void loading();
+                int repetir;
+                nome = 5;//esse é o nome que vai aparecer lá em cima
+                do{
+                double matriz[2][2];
+                //popularDois(matriz, nome);
+
+                resolver_diagonalizacao();
+                printf("\n");
+                printf("\n");
+                printf("\n");
+                printf("deseja repetir? 0 para parar\n");
+                scanf("%d", &repetir);
+                }while(repetir!=0);
+                         /* code
+                limpaTela();
+                break;
+                //essa em teoria tá pronta
+
+            default:
+                //opcao incorreta
+                break;
+        }
+
+    } while(escolha!=0);
+
+    */
+    return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12,7 +142,7 @@
 // while ((c = getchar()) != '\n' && c != EOF);
 //setlocale(LC_ALL, "Portuguese");
 
-
+/*
 int main(void) {
     int linha, coluna, tem_solucao=0;
     //double fator = 0.0;
@@ -72,10 +202,11 @@ int main(void) {
             printf("%.1lf  ", matriz[linhaa][colunaa]);
         }
         printf("\n");
-    }*/
+    }
 
 
 
 
     return 0;
 }
+*/

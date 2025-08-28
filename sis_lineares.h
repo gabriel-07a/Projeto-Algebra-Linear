@@ -4,9 +4,12 @@
 
 #ifndef MAIN_CLION_SIS_LINEARES_H
 #define MAIN_CLION_SIS_LINEARES_H
+#include "struct_matriz.h"
 
-void escalonador(int linha, int coluna, double matriz[linha][coluna]);
-int analista(int linha, int coluna, double matriz[linha][coluna]);
-void solucionador(int linha, int coluna, double matriz[linha][coluna]);
+void resolver_sistemas_lineares();
+
+void escalonador(Matriz *matriz);
+int analista(Matriz matriz);
+void solucionador(Matriz *matriz);
 
 #endif //MAIN_CLION_SIS_LINEARES_H
