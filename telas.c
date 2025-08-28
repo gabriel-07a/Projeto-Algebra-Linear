@@ -45,6 +45,7 @@ void loading() {
     }
     // falta o espaço aq
     for (int i = 0; i < 20; i++) { printf(" "); }
+
     for (int i = 0; i < 2; i++) {
         for (int i = 0; i < 60; i++) {
             printf(BLACK"%s"RESET, bloco_solido);
@@ -70,27 +71,10 @@ void loading(){
 //tem que tratar os titulos pq eu fui animal e coloquei como se começasse em 1
 char titulos[6][30];
 
-void inicializa_titulos(char titulos[][30]) {
-    strcpy(titulos[1], "       Sistemas Lineares      ");
-    strcpy(titulos[2], "  Verificação de injetividade ");
-    strcpy(titulos[3], "    Determinação de Bases     ");
-    strcpy(titulos[4], "  Autovetores e Autovalores   ");
-    strcpy(titulos[5], "Diagonalização de Matrizes 2x2");
-}
 
 
-//eu preciso de um trem para verificar dps se isso é maior que 5
-int count = 0; //isso serve para montar certo a matriz.
-double vetor[4];
 
-int Tcount = 0; //T de tres
-double Tvetor[9];
 
-void limpaVetor(double vetor[], int tam) {
-    for (int i = 0; i < tam; i++) {
-        vetor[i] = 0;
-    }
-}
 
 /*esse "width está relacionado a largura que eu determinei "-" para cada numero
 oq vai funcionar bem até numeros menores que 1k"*/
@@ -106,7 +90,7 @@ void print_with_padding(double num, int width) {
     for (int i = 0; i < padding; i++) {
         printf(" ");
     }
-    printf("%.2lf", num);
+    printf("%.1lf", num);
 }
 
 void limpaTela() {
@@ -144,41 +128,85 @@ void menuPrincipal() {
     printf("====================================================================================================\n");
 }
 
-//esse nome tá repetido lá no final
-//trocar os nomes dessas telas para nao confundir e nao dar problema
-void doisTela(double numeroMatriz, int nome) {
+//
+//Telas para Sistemas Lineares
+//
+
+
+void tela_sis_lineares_para_pegar_tamanho() {
     limpaTela();
-    vetor[count] = numeroMatriz;
-    count++;
-    if (count == 4) {
-        count = 0;
-        limpaVetor(vetor, 4); // assim o vetor será limpo para proxima iteração
+    // tem 98 "="
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                          Sistemas Lineares                                       ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║  Digite o tamanho do sistema linear:                                                             ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║  Exemplo: 2x2 (2 por 2),                                                                         ║\n");
+    printf("║           3x3 (3 por 3),                                                                         ║\n");
+    printf("║           nxn (n por n)                                                                          ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("====================================================================================================\n");
+}
+
+
+void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
+    double numero, count=0;
+    for(int i = 0; i < 2; i++) {
+        for(int j = 0; j < 3; j++) {
+            printf("Matriz [%d],[%d] = ", i+1, j+1);
+            scanf("%lf", &matriz->dados[i][j]);
+            numero = matriz->dados[i][j];
+            tela_para_popular_matriz_2x2(numero,nome, count);
+            count++;
+        }
     }
+}
+void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
+    //eu preciso de um trem para verificar dps se isso é maior que 5
+     //isso serve para montar certo a matriz.
+    double vetor_para_imprimir_a_matriz[7];
+    limpaTela();
+    vetor_para_imprimir_a_matriz[count] = numeroMatriz;
+
 
     //fica meio bugadinho vendo aqui mas na hora de printar vai dar certo. que ele vai reservar
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║                                                                                                  ║\n");
-    printf("║                                 %s                                   ║\n", titulos[nome]);
+    printf("║                                      Sistemas Lineares 2x2                                       ║\n");
     printf("║                                                                                                  ║\n");
     printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\n");
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║ Digite sua matriz:                                                                               ║\n");
     printf("║                                                                                                  ║\n");
-    printf("║                                   +-------+-------+                                              ║\n");
+    printf("║                                   +-------+-------+-------+                                      ║\n");
     printf("║                                   ");
-    print_with_padding(vetor[0], 7);
-    print_with_padding(vetor[1], 7);
-    printf(" |                                              ║\n");
+    print_with_padding(vetor_para_imprimir_a_matriz[0], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[1], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[2], 8);
+    printf("|                                      ║\n");
 
-    printf("║                                   +-------+-------+                                              ║\n");
+    printf("║                                   +-------+-------+-------+                                      ║\n");
     printf("║                                   ");
-    print_with_padding(vetor[2], 7);
-    print_with_padding(vetor[3], 7);
-    printf(" |                                              ║\n");
+    print_with_padding(vetor_para_imprimir_a_matriz[3], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[4], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[5], 8);
+    printf("|                                      ║\n");
 
-    printf("║                                   +-------+-------+                                              ║\n");
+    printf("║                                   +-------+-------+-------+                                      ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
@@ -188,30 +216,33 @@ void doisTela(double numeroMatriz, int nome) {
 
     printf("\n");
     printf("====================================================================================================\n");
-    /*for(int i = 0 ; i < 4 ; i++){
-         printf("%.2lf\n", vetor[i]);
-     }
-         */ //tá servindo só pra eu verificar se essa encrenca tava ou nao prestando kk
+
 }
 
 
 //essa vai servir para popular 3x3
-void tresTela(double numeroMatriz, int nome) {
-    limpaTela();
-
-    Tvetor[Tcount] = numeroMatriz;
-
-    Tcount++;
-
-    if (Tcount == 9) {
-        Tcount = 0; // Reseta o contador para o primeiro elemento
-        limpaVetor(Tvetor, 9);
+void funcao_para_popular_matriz_3x3(Matriz *matriz, int nome) {
+    double numero, count =0;
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 4; j++) {
+            printf("Matriz [%d],[%d] = ", i+1, j+1);
+            scanf("%lf", &matriz->dados[i][j]);
+            numero = matriz->dados[i][j];
+            tela_para_popular_matriz_3x3(numero,nome, count);
+            count++;
+        }
     }
+
+}
+void tela_para_popular_matriz_3x3(double numeroMatriz, int nome, int count) {
+    limpaTela();
+    double vetor_para_imprimir_a_matriz[13];
+    vetor_para_imprimir_a_matriz[count] = numeroMatriz;
 
     // Header da tela
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║                                                                                                  ║\n");
-    printf("║                            %s                                 ║\n", titulos[nome]);
+    printf("║                                      Sistemas Lineares 3x3                                       ║\n");
     printf("║                                                                                                  ║\n");
     printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\n");
@@ -220,30 +251,33 @@ void tresTela(double numeroMatriz, int nome) {
     printf("║                                                                                                  ║\n");
 
     // Linha 1 da matriz
-    printf("║                                 +-------+-------+-------+                                        ║\n");
+    printf("║                                 +-------+-------+-------+-------+                                ║\n");
     printf("║                                 ");
-    print_with_padding(Tvetor[0], 7);
-    print_with_padding(Tvetor[1], 7);
-    print_with_padding(Tvetor[2], 7);
-    printf(" |                                       ║\n");
+    print_with_padding(vetor_para_imprimir_a_matriz[0], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[1], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[2], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[3], 8);
+    printf("|                                ║\n");
 
     // Linha 2 da matriz
-    printf("║                                 +-------+-------+-------+                                        ║\n");
+    printf("║                                 +-------+-------+-------+-------+                                ║\n");
     printf("║                                 ");
-    print_with_padding(Tvetor[3], 7);
-    print_with_padding(Tvetor[4], 7);
-    print_with_padding(Tvetor[5], 7);
-    printf(" |                                       ║\n");
+    print_with_padding(vetor_para_imprimir_a_matriz[4], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[5], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[6], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[7], 8);
+    printf("|                                ║\n");
 
     // Linha 3 da matriz
-    printf("║                                 +-------+-------+-------+                                        ║\n");
+    printf("║                                 +-------+-------+-------+-------+                                ║\n");
     printf("║                                 ");
-    print_with_padding(Tvetor[6], 7);
-    print_with_padding(Tvetor[7], 7);
-    print_with_padding(Tvetor[8], 7);
-    printf(" |                                       ║\n");
+    print_with_padding(vetor_para_imprimir_a_matriz[8], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[9], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[10], 8);
+    print_with_padding(vetor_para_imprimir_a_matriz[11], 8);
+    printf("|                                ║\n");
 
-    printf("║                                 +-------+-------+-------+                                        ║\n");
+    printf("║                                 +-------+-------+-------+-------+                                ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
@@ -251,6 +285,86 @@ void tresTela(double numeroMatriz, int nome) {
     printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\n");
 }
+
+
+
+
+//
+// Telas para verificação de injetividade
+//
+
+void tela_verificacao_para_pegar_dimensoes() {
+    limpaTela();
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                Verificação de Injetividade, Sobrejetividade e Bijetividade                       ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║  Digite a dimensão do R inicial e do R final:                                                    ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║  Exemplo: 3 2,                                                                                   ║\n");
+    printf("║           2 2,                                                                                   ║\n");
+    printf("║           3 3                                                                                    ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("====================================================================================================\n");
+}
+
+void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz) {
+    tela_para_pegar_as_transformacoes();
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            scanf("%lf", &matriz->dados[i][j]);
+
+        }
+    }
+
+}
+void tela_para_pegar_as_transformacoes() {
+    limpaTela();
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                Verificação de Injetividade, Sobrejetividade e Bijetividade                       ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║  Digite as trasformacoes lineares:                                                               ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║  Exemplo: para R(inicial) = 2 e R(final) = 3: x y                                                ║\n");
+    printf("║                                               x y                                                ║\n");
+    printf("║                                               x y                                                ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║           para R(inicial) = 3 e R(final) = 3: x y z                                              ║\n");
+    printf("║                                               x y z                                              ║\n");
+    printf("║                                               x y z                                              ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("║                                                                                                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    printf("====================================================================================================\n");
+}
+
+
+
+
+
+//
+// telas para determinação de bases
+//
+
+
+
 
 
 void Det_basesmenu() {
@@ -311,34 +425,6 @@ void Det_Resultado(int numero) {
 }
 
 
-/*void Det_basesDois(){
-limpaTela();
-    // tem 98 "="
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                   Determinação de Bases                                          ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("║                                                                                                  ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\n");
-    printf("====================================================================================================\n");
-
-}*/
-//deixei essa acima aqui pra caso a gente decida implementar mais aquela que o pablo falou lá
 
 
 //essa é do autovalores
@@ -353,20 +439,20 @@ void aAtelas(double lambda[2], Matriz autovetores) {
     printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\n");
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║ Os autovalores são %7.2lf e %7.2lf                                                 ║\n", lambda[0],
+    printf("║ Os autovalores são %7.2lf e %7.2lf                                                             ║\n", lambda[0],
            lambda[1]); //tem que ficar assim mesmo por conta das casa que ele vai
     //mas é bom ver se isso aq nao vai dar mais espaço ou espaço de menos
     printf("║ Para lambda_1:                                                                                   ║\n");
-    printf("║                       %7.2lf  |                                                     ║\n",
+    printf("║                       %7.2lf  |                                                                 ║\n",
            autovetores.dados[0][0]);
-    printf("║                       %7.2lf  |                                                     ║\n",
+    printf("║                       %7.2lf  |                                                                 ║\n",
            autovetores.dados[1][0]);
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");
     printf("║ Para lambda_2:                                                                                   ║\n");
-    printf("║                       %7.2lf  |                                                     ║\n",
+    printf("║                       %7.2lf  |                                                                 ║\n",
            autovetores.dados[0][1]);
-    printf("║                       %7.2lf  |                                                     ║\n",
+    printf("║                       %7.2lf  |                                                                 ║\n",
            autovetores.dados[1][1]);
     printf("║                                                                                                  ║\n");
     printf("║                                                                                                  ║\n");

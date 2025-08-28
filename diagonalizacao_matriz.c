@@ -14,6 +14,7 @@ const double EPS = 1e-9;
 void resolver_diagonalizacao() {
     double lambda[2];
     double matriz_diagonalizada[2][2] = {{0,0},{0,0}};
+
     Matriz matriz = criar_matriz(2,2);
     Matriz autovetores = criar_matriz(2,2);
 
@@ -39,7 +40,7 @@ void popular_matriz_2x2(Matriz *matriz,int nome){
             printf("Matriz [%d],[%d] = ", i+1, j+1);
             scanf("%lf", &matriz->dados[i][j]);
             numero = matriz->dados[i][j];
-            doisTela(numero,nome);
+            tela_para_popular_matriz_2x2(numero,nome, 0);
         }
     }
 }

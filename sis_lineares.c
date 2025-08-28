@@ -9,6 +9,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include "telas.h"
+
 /*
  * Essa biblioteca é feita para resolver sistema lineares
  * Ela é dividida basicamennte em três funções que resolvem o problema e uma função que organiza e chama as outras funções
@@ -28,8 +30,9 @@
 
 void resolver_sistemas_lineares() {
     int tamanho_linha, tamanho_coluna;
-    printf("Digite o tamanho da matriz (linha por coluna):\n");
-    scanf("%d %d", &tamanho_linha, &tamanho_coluna);
+    //
+    tela_sis_lineares_para_pegar_tamanho();
+    scanf("%dx%d", &tamanho_linha, &tamanho_coluna);
     //aq ele basicamente pega o tamanho (linha por coluna) do sistema
 
     tamanho_coluna++;
@@ -48,13 +51,30 @@ void resolver_sistemas_lineares() {
         printf("A coluna da matriz deve ser maior que 1.\n");
     }
 
-    //Aqui ele basicamente pega os elementos da matriz e armazenam nela
-    printf("Digite os elementos da matriz:\n");
-    for (int i = 0; i < tamanho_linha; i++) {
-        for (int j = 0; j < tamanho_coluna; j++) {
-            scanf("%lf", &matriz.dados[i][j]);
+    //Populando a matriz
+    //
+    if (tamanho_linha == 2 && tamanho_coluna == 3) {
+        //Chama a função para popular matrizes 2 por 2
+        funcao_para_polular_matriz_2x2(&matriz, 1);
+
+    }else if (tamanho_linha == 3 && tamanho_coluna == 4) {
+        //Chama a função para popular matrizes 3 por 3
+        funcao_para_popular_matriz_3x3(&matriz, 1);
+
+    }else {
+        //Aqui ele basicamente pega os elementos da matriz e armazenam nela
+        limpaTela();
+        printf("Digite os elementos da matriz:\n");
+        for (int i = 0; i < tamanho_linha; i++) {
+            for (int j = 0; j < tamanho_coluna; j++) {
+                printf("matriz [%d][%d] = ", i+1, j+1);
+                scanf("%lf", &matriz.dados[i][j]);
+                limpaTela();
+            }
         }
     }
+
+
 
     //aqui é criada a copia citada em cima, basicamente para poder manter a matriz orignal intacta no progrma
     //usando somente a matriz copiada para os calculos

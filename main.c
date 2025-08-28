@@ -6,44 +6,40 @@
 #include "det_bases.h"
 #include "diagonalizacao_matriz.h"
 #include "sis_lineares.h"
+#include "telas.h"
 #include "transformacoes.h"
 
 
 int main() {
-    //resolver_sistemas_lineares();
-    //resolver_verificacoes();
-    //resolver_determinacao();
-    //resolver_autovalores_autovetores();
-    resolver_diagonalizacao();
-
-    /*
     char menu_principal[29];// tem que ser 29 por conta do \0 e 28 é
     // pra ficar no meio
     strcpy(menu_principal, "Menu Principal");
-    /* menu_top(menu_principal);
+
     int escolha;
     int nome;//esse é o nome que vai aparecer lá em cima
     do{
+        int repetir;
         menuPrincipal();
         scanf("%d", &escolha);
         switch (escolha) {
             case 1:
                 void loading();
-                int repetir;
+
                 do{
                 limpaTela();
 
                 resolver_sistemas_lineares();
                 printf("\n");
-                printf("deseja repetir? 0 para parar\n");
+                printf("deseja repetir? 1 - Sim | 2 - Nao\n");
                 scanf("%d", &repetir);
-                }while (repetir!=0);
+                }while (repetir!=2);
+
                 limpaTela();
                 break;
 
             case 2:
                 void loading();
-                int repetir;
+
                 do{
                 limpaTela();
 
@@ -52,6 +48,7 @@ int main() {
                 printf("deseja repetir? 0 para parar\n");
                 scanf("%d", &repetir);
                 }while (repetir!=0);
+
                 limpaTela();
                 break;
 
@@ -59,18 +56,22 @@ int main() {
             case 3:
                 void loading();
 
-                resolver_determinacao();
 
-                determ_bases();
-                //eu suspeito que tá faltando um negocio pra sair daq kkk q se nao vai dar loop infinito
+                do{
+                    limpaTela();
 
-            //esse é o determinação de bases.
-                /* code
+                    resolver_determinacao();
+                    printf("\n");
+                    printf("deseja repetir? 0 para parar\n");
+                    scanf("%d", &repetir);
+                }while (repetir!=0);
+
+
                 break;
 
             case 4:
                 void loading();
-                int repetir;
+
                 nome = 4;
                 do{
 
@@ -81,17 +82,16 @@ int main() {
                 printf("deseja repetir? 0 para parar\n");
                 scanf("%d", &repetir);
                 }while(repetir!=0);
-                    /* code
+
                 limpaTela();
                 break;
 
             case 5:
                 void loading();
-                int repetir;
+
                 nome = 5;//esse é o nome que vai aparecer lá em cima
                 do{
-                double matriz[2][2];
-                //popularDois(matriz, nome);
+
 
                 resolver_diagonalizacao();
                 printf("\n");
@@ -100,19 +100,19 @@ int main() {
                 printf("deseja repetir? 0 para parar\n");
                 scanf("%d", &repetir);
                 }while(repetir!=0);
-                         /* code
+
                 limpaTela();
                 break;
-                //essa em teoria tá pronta
+
 
             default:
-                //opcao incorreta
+
                 break;
         }
 
     } while(escolha!=0);
 
-    */
+
     return 0;
 
 }

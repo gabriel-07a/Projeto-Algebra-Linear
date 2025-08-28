@@ -9,22 +9,19 @@
 
 #include "sis_lineares.h"
 #include "struct_matriz.h"
+#include "telas.h"
 
 void resolver_verificacoes() {
     int dimensao_r_inicial, dimensao_r_final;
-    printf("Digite a dimensao do espaco vetorial inicial: ");
-    scanf("%d", &dimensao_r_inicial);
-    printf("Digite a dimensao do espaco vetorial final: ");
-    scanf("%d", &dimensao_r_final);
+    tela_verificacao_para_pegar_dimensoes();
+    scanf("%d %d", &dimensao_r_inicial, &dimensao_r_final);
+
+
 
     Matriz matriz = criar_matriz(dimensao_r_final, dimensao_r_inicial);
 
-    printf("Digite as transformações lineares:\n");
-    for (int i = 0; i < dimensao_r_final; i++) {
-        for (int j = 0; j < dimensao_r_inicial; j++) {
-            scanf("%lf", &matriz.dados[i][j]);
-        }
-    }
+    funcao_para_pegar_as_transformacoes(dimensao_r_final, dimensao_r_inicial, &matriz);
+
 
     verifica_transformacoes(matriz, dimensao_r_inicial, dimensao_r_final);
 
@@ -56,7 +53,9 @@ void verifica_transformacoes(Matriz matriz, int r_inicial, int r_final) {
     escalonador(&matriz);
     int quant_pivos = contar_pivos(matriz);
 
-    printf("A transformacao de R%d em R%d:\n", r_inicial, r_final);
+    limpaTela();
+    printf("═══════════════════════════════════════\n");
+    printf("    A transformacao de R%d em R%d:\n", r_inicial, r_final);
 
     //agr é só ver se tem o msm tanto de pivos e colunas
     if (matriz.colunas == quant_pivos) {
@@ -74,6 +73,9 @@ void verifica_transformacoes(Matriz matriz, int r_inicial, int r_final) {
 
     if (matriz.linhas == quant_pivos && matriz.colunas == quant_pivos) {
         printf("Portanto essa transformacao é bijetora!\n");
+        printf("═══════════════════════════════════════");
+    }else {
+        printf("═══════════════════════════════════════");
     }
 
 
