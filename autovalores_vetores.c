@@ -30,43 +30,40 @@ void resolver_autovalores_autovetores() {
     calcular_autovetor(matriz, &autovetores, resposta_autovalores);
 
     aAtelas(resposta_autovalores, autovetores);
+    destruir_matriz(&matriz);
+    destruir_matriz(&autovetores);
 }
 
-void popular_matriz_2x2(Matriz *matriz,int nome){
-    double numero;
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            printf("Matriz [%d],[%d] = ", i+1, j+1);
-            scanf("%lf", &matriz->dados[i][j]);
-            numero = matriz->dados[i][j];
-            doisTela(numero, nome);
-
-        }
-    }
-}
 
 //esse nome tá repetido lá no final
 //trocar os nomes dessas telas para nao confundir e nao dar problema
 
 int calcular_autovalores(double res_autovalores[2], Matriz matriz) {
-    double traco, determinante, delta, b;
+    double traco, determinante, delta, b, a = 1.0;
 
     traco = matriz.dados[0][0] + matriz.dados[1][1]; // - (traco da matriz)
     determinante = matriz.dados[0][0] * matriz.dados[1][1] - matriz.dados[0][1] * matriz.dados[1][0];
     b = -traco;
     //delta = b * b - 4 * a * c;
-    delta = b * b - 4.0 * 1.0 * determinante;
+    delta = b * b - 4.0 * a * determinante;
 
 
-    if (delta < 0) {
+    if (delta < -EPS) {
         printf("autovalores complexos");
         return 0;
     }
 
-    res_autovalores[0] = (-b + sqrt(delta)) / 2.0;
-    res_autovalores[1] = (-b - sqrt(delta)) / 2.0;
+    if (delta < EPS) { // apenas uma raiz (autovalores iguais)
+        res_autovalores[0] = -b / (2.0 * a);
+        res_autovalores[1] = res_autovalores[0];
+    } else {
+        res_autovalores[0] = (-b + sqrt(delta)) / (2.0 * a);
+        res_autovalores[1] = (-b - sqrt(delta)) / (2.0 * a);
+    }
     return 2;
 }
+
+
 
 void calcular_autovetor(Matriz matriz, Matriz *autovetores, double lambda[2]) {
     for (int i = 0; i < 2; i++) {

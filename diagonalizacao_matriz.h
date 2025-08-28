@@ -4,11 +4,11 @@
 
 #ifndef MAIN_CLION_DIAGONALIZACAO_MATRIZ_H
 #define MAIN_CLION_DIAGONALIZACAO_MATRIZ_H
+#include "struct_matriz.h"
 
-int bhaskara(double a, double b, double c, double x[2]);
-double det_dois(double matriz[2][2]);
-int dia_dois(double p[2][2], double matriz[2][2], double d[2][2]);
-void processa_matriz_2x2(double matriz[2][2]);
+void resolver_diagonalizacao();
+int verficia_diagonalizacao(Matriz matriz, Matriz autovetores, double matriz_diagonalizada[2][2]);
+void diagoniza_2x2(Matriz *matriz, Matriz *autovetores, double lambda[2], double matriz_diagonalizada[2][2]);
 
 
 #endif //MAIN_CLION_DIAGONALIZACAO_MATRIZ_H

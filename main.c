@@ -4,6 +4,7 @@
 
 #include "autovalores_vetores.h"
 #include "det_bases.h"
+#include "diagonalizacao_matriz.h"
 #include "sis_lineares.h"
 #include "transformacoes.h"
 
@@ -12,7 +13,8 @@ int main() {
     //resolver_sistemas_lineares();
     //resolver_verificacoes();
     //resolver_determinacao();
-    resolver_autovalores_autovetores();
+    //resolver_autovalores_autovetores();
+    resolver_diagonalizacao();
 
     /*
     char menu_principal[29];// tem que ser 29 por conta do \0 e 28 é
