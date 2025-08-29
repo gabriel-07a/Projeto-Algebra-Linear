@@ -17,22 +17,16 @@ int main() {
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
     #endif
-    // Adicione estas linhas NO COMEÇO da sua função main
-    #ifdef _WIN32
-        // Define a página de código de saída do console para UTF-8
-        SetConsoleOutputCP(CP_UTF8);
-        SetConsoleCP(CP_UTF8);
-    #endif
-
 
 
 
     int escolha;
-    int nome;//esse é o nome que vai aparecer lá em cima
     do{
         int repetir;
         exibir_tela_estatica("menu_principal");
         scanf("%d", &escolha);
+
+
         switch (escolha) {
             case 1:
                 loading();
@@ -42,9 +36,9 @@ int main() {
 
                 resolver_sistemas_lineares();
                 printf("\n");
-                printf("deseja repetir? 1 - Sim | 2 - Nao\n");
+                printf("deseja repetir? 0 para parar\n");
                 scanf("%d", &repetir);
-                }while (repetir!=2);
+                }while (repetir!=0);
 
                 limpaTela();
                 break;
@@ -84,7 +78,7 @@ int main() {
             case 4:
                 loading();
 
-                nome = 4;
+
                 do{
 
                 resolver_autovalores_autovetores();
@@ -101,7 +95,7 @@ int main() {
             case 5:
                 loading();
 
-                nome = 5;//esse é o nome que vai aparecer lá em cima
+
                 do{
 
 

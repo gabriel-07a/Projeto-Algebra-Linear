@@ -29,11 +29,11 @@
 
 
 void limpaTela() {
-#ifdef _WIN32
-    system("cls"); // Windows
-#else
-    system("clear"); // Linux e Mac
-#endif
+    #ifdef _WIN32
+        system("cls"); // Windows
+    #else
+        system("clear"); // Linux e Mac
+    #endif
 }
 
 void loading() {
@@ -72,9 +72,6 @@ char titulos[6][30];
 
 
 
-
-/*esse "width está relacionado a largura que eu determinei "-" para cada numero
-oq vai funcionar bem até numeros menores que 1k"*/
 void printa_com_espacos(double num, int largura) {
     //cria um buffer temporario
     //vai servir como o lugar em que vai ser colocado o texto
@@ -87,6 +84,7 @@ void printa_com_espacos(double num, int largura) {
     // Calcula os espaços a serem adicionados
     //agora é pego a largura total que eu quero para a string e subtraio pela largura total que deu o número de entrada
     int quant_de_espacos_em_branco = largura - quant_caracteres;
+
 
     // Imprime o alinhamento
     printf("|");
@@ -101,7 +99,7 @@ void printa_com_espacos(double num, int largura) {
 
 
 
-void exibir_tela_estatica(char* nome_tela) {
+void exibir_tela_estatica(const char* nome_tela) {
     limpaTela();
     FILE *arquivo;
     char linha[200];
@@ -161,7 +159,8 @@ void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
         vetor_para_imprimir_a_matriz_2x2[i] = 0.0;
     }
 
-    double numero, count=0;
+    double numero;
+    int count=0;
     for(int i = 0; i < 2; i++) {
         for(int j = 0; j < 3; j++) {
             printf("Matriz [%d],[%d] = ", i+1, j+1);
@@ -227,11 +226,12 @@ void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
 double vetor_para_imprimir_a_matriz_3x3[13];
 
 void funcao_para_popular_matriz_3x3(Matriz *matriz, int nome) {
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 13; i++) {
         vetor_para_imprimir_a_matriz_3x3[i] = 0.0;
     }
 
-    double numero, count =0;
+    double numero;
+    int count=0;
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 4; j++) {
             printf("Matriz [%d],[%d] = ", i+1, j+1);
@@ -369,10 +369,11 @@ void tela_para_resultado_da_determinante(int numero) {
 double vetor_para_imprimir_a_matriz_para_autovalores[5];
 
 void funcao_para_polular_matrizez_para_autovalores(Matriz *matriz,int nome){
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 5; i++) {
         vetor_para_imprimir_a_matriz_para_autovalores[i] = 0.0;
     }
-    double numero, count=0;
+    double numero;
+    int count=0;
     for(int i = 0; i < 2; i++) {
         for(int j = 0; j < 2; j++) {
             printf("Matriz [%d],[%d] = ", i+1, j+1);
@@ -392,7 +393,7 @@ void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, 
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║                                                                                                  ║\n");
-    printf("║                                      Sistemas Lineares 2x2                                       ║\n");
+    printf("║                                         Matriz 2x2                                               ║\n");
     printf("║                                                                                                  ║\n");
     printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\n");

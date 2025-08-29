@@ -3,7 +3,6 @@
 //
 
 #include "struct_matriz.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 

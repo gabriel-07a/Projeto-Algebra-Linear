@@ -8,8 +8,8 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
-
 #include "telas.h"
+
 
 /*
  * Essa biblioteca é feita para resolver sistema lineares
@@ -20,20 +20,39 @@
 
 
 
+
 /*
- *Essa é a função "mãe" chamada na tela principal e que resolve tudo sobre sistemas lineares
- *Ela é chamada e a partir daí faz tudo sozinha
- *Como: receber a entrada dos dados nescessarios, criar uma matriz do tipo Matriz(que é uma struct), criar uma cópia dessa matriz
+ * Essa é a função "mãe" chamada na tela principal e que resolve tudo sobre sistemas lineares
+ * Ela é chamada e a partir daí faz tudo sozinha
+ * Como: receber a entrada dos dados nescessarios, criar uma matriz do tipo Matriz(que é uma struct), criar uma cópia dessa matriz
  * para se poder usar a matriz copiada para ser usada para fazer os calculos nescessarios, e se nescessarios,
  * devolver a matriz original, além disso ela chama as funções nescessarias para fazer o calcudo de sistemas lineares completo.
  */
 
 void resolver_sistemas_lineares() {
     int tamanho_linha, tamanho_coluna;
-    //
-    exibir_tela_estatica("sistemas_lineares");
+    int verificar_entrada= 10;
+    //verifica se o usuario fez a entreda correta de dados
+    while (verificar_entrada != 2) {
+        exibir_tela_estatica("sistemas_lineares");
+        if (verificar_entrada == 1) {
+            printf("Voce não digitou no formato correto: nxn!\n");
+            printf("Digite novamente: ");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }else if (verificar_entrada == 0) {
+            printf("Nao foi possivel ler nenhum numero!\n");
+            printf("Digite novamente: ");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
+        verificar_entrada = scanf("%dx%d", &tamanho_linha, &tamanho_coluna);
 
-    scanf("%dx%d", &tamanho_linha, &tamanho_coluna);
+    }
+
+
+
+
     //aq ele basicamente pega o tamanho (linha por coluna) do sistema
 
     tamanho_coluna++;
@@ -260,8 +279,11 @@ void solucionador(Matriz *matriz) {
     }
 
     //printa o resultado
-    printf("\n Resultados: \n");
+    printf("═══════════════════\n");
+    printf("Resultados: \n");
     for (int i = 0; i < num_variaveis; i++) {
-        printf("%.1lf  ", res[i]);
+        printf(" %.1lf ", res[i]);
     }
+    printf("\n");
+    printf("═══════════════════\n");
 }

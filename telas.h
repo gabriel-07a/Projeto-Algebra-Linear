@@ -7,10 +7,10 @@
 #include "struct_matriz.h"
 
 void loading();
-void inicializa_titulos(char titulos[][30]);
 
 
-void exibir_tela_estatica(char* nome_tela);
+
+void exibir_tela_estatica(const char* nome_tela);
 
 //telas para popular matrizes
 void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome);
@@ -44,7 +44,7 @@ void menuDiagonalizacao2x2(double lambda[2]);
 
 void printa_com_espacos(double num, int largura);
 void limpaTela();
-void menuPrincipal();
+
 
 
 #endif //MAIN_CLION_TELAS_H

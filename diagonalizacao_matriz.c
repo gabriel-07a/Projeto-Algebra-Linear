@@ -1,54 +1,61 @@
 //
-// Created by gabriel on 26/08/2025.
+// Created by gabriel & andré on 26/08/2025.
 //
 
 #include <stdio.h>
 #include <math.h>
 #include "diagonalizacao_matriz.h"
-
 #include "autovalores_vetores.h"
 #include "telas.h"
+#define EPS 1e-9
 
-const double EPS = 1e-9;
+
+/*
+ * Essa biblioteca é feita para resolver a diagonalização de bases
+ * Ela é dividida basicamennte em duas funções que resolvem o problema e uma função que organiza e chama as outras funções
+ * A função resolver_diagonalizacao é a única que é chamada fora dessa biblioteca, para uma melhor organização.
+ */
+
+
+
+
+
+/*
+ * Essa é a função "mãe" chamada na tela principal e que resolve tudo
+ * Ela é chamada e a partir daí faz tudo sozinha
+ * Primeiro essa crias as matrizes nescessarias para o progrma, depois chama uma função para poder popular as matrizes,
+ * chama a função para calcular autovalores da biblioteca autovalores_vetores.h, chama a função que vai fazer a diagonalização,
+ * faz a revificação da diagonalização a partir de uma outra função, e se, for diagonalizavel chama a função para imprimir essa matriz
+ */
 
 void resolver_diagonalizacao() {
     double lambda[2];
     double matriz_diagonalizada[2][2] = {{0,0},{0,0}};
-
+    //cria as matrizes
     Matriz matriz = criar_matriz(2,2);
     Matriz autovetores = criar_matriz(2,2);
-
+    //chama a função que vai printar a tela e popular as matrizes
     funcao_para_polular_matrizez_para_autovalores(&matriz, 2);
-
+    //chama a função para fazer o calculo de autovales
+    //esse função é a a função de outra biblioteca
     calcular_autovalores(lambda, matriz);
-
+    //faz a diagonalização das matrizes 2x2
     diagoniza_2x2(&matriz, &autovetores, lambda, matriz_diagonalizada);
-
     //chamando a outra função para confirmar a diagonalização
     if (verficia_diagonalizacao(matriz, autovetores, matriz_diagonalizada) == 0){
+        //se não é diagonalizavel imprime na tela
         limpaTela();
         printf("Nao eh diagonalizavel.\n");
     }else {
+        //se for diagonalizes imprime na tela a matriz diagonalizada
         menuDiagonalizacao2x2(lambda); //isso daq é a tela
     }
 }
 
-void popular_matriz_2x2(Matriz *matriz,int nome){
-    double numero;
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-            printf("Matriz [%d],[%d] = ", i+1, j+1);
-            scanf("%lf", &matriz->dados[i][j]);
-            numero = matriz->dados[i][j];
-            tela_para_popular_matriz_2x2(numero,nome, 0);
-        }
-    }
-}
 
 
 
-
-
+//função que vai testar para ver se a matriz é mesmo diagonalizavel
 int verficia_diagonalizacao(Matriz matriz, Matriz autovetores, double matriz_diagonalizada[2][2]) {
     double det_p = autovetores.dados[0][0] * autovetores.dados[1][1] - autovetores.dados[0][1] * autovetores.dados[1][0];
     if (fabs(det_p) < EPS) return 0;
@@ -80,12 +87,9 @@ int verficia_diagonalizacao(Matriz matriz, Matriz autovetores, double matriz_dia
 }
 
 
-
-
+//essa é a função que vai diagonalizar a matriz 2x2
 void diagoniza_2x2(Matriz *matriz, Matriz *autovetores, double lambda[2], double matriz_diagonalizada[2][2]) {
-
-
-    //autovalores_iguas();
+    //verifica se tem apenas um autovetor linearmente idenpendente
     if (fabs(lambda[0] - lambda[1]) < EPS) {
         // Autovalores iguais
         double m00 = matriz->dados[0][0] - lambda[0];
@@ -131,30 +135,4 @@ void diagoniza_2x2(Matriz *matriz, Matriz *autovetores, double lambda[2], double
             matriz_diagonalizada[i][i] = lambda[i];
         }
     }
-
-
 }
-
-
-
-
-/*
-int main() {
-    double matriz[2][2] = {{2,0},{0,3}};
-    processa_matriz_2x2(matriz);
-
-    printf("\n");
-    double matriz2[2][2] = {{1,1},{0,1}};
-    processa_matriz_2x2(matriz2);
-
-    printf("\n");
-    double matriz4[2][2] = {{1,0},{0,1}};
-    processa_matriz_2x2(matriz4);
-
-    printf("\n");
-    double matriz3[2][2] = {{5,0},{0,5}};
-    processa_matriz_2x2(matriz3);
-
-    return 0;
-}
-*/
