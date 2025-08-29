@@ -12,23 +12,19 @@
 
 
 int main() {
-<<<<<<< HEAD
     #ifdef _WIN32
         // Define a página do código de saída do console para UTF-8
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
     #endif
-=======
     // Adicione estas linhas NO COMEÇO da sua função main
-#ifdef _WIN32
-    // Define a página de código de saída do console para UTF-8
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-#endif
+    #ifdef _WIN32
+        // Define a página de código de saída do console para UTF-8
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+    #endif
 
-    char menu_principal[29];// tem que ser 29 por conta do \0 e 28 é
-    // pra ficar no meio
->>>>>>> 3daf19ef52053390e751d0b6b57111e4e9dc75e8
+
 
 
     int escolha;
@@ -40,10 +36,7 @@ int main() {
         switch (escolha) {
             case 1:
                 loading();
-<<<<<<< HEAD
 
-=======
->>>>>>> 3daf19ef52053390e751d0b6b57111e4e9dc75e8
                 do{
                 limpaTela();
 
@@ -139,99 +132,3 @@ int main() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//scanf ("%29[^\n]s", var);
-//gets(texto); // faz a mesma coisa do scanf
-//puts() //imprime somente texto na tela
-//int c
-// while ((c = getchar()) != '\n' && c != EOF);
-//setlocale(LC_ALL, "Portuguese");
-
-/*
-int main(void) {
-    int linha, coluna, tem_solucao=0;
-    //double fator = 0.0;
-    printf("Digite o tamanho da matriz: M N\n");
-    scanf("%d %d", &linha, &coluna);
-    double matriz[linha][coluna], aux[coluna];
-    for (int i = 0; i < linha; i++) {
-        for (int j = 0; j < coluna; j++) {
-            scanf("%lf", &matriz[i][j]);
-        }
-    }
-    // 3 por 4
-    // linha = 3;
-    // coluna = 4;
-
-    verifica_transformacoes(linha, coluna, matriz);
-
-    /*
-    escalonador(linha, coluna, matriz);
-
-    tem_solucao = analista(linha, coluna, matriz);
-
-    if (tem_solucao) {
-        solucionador(linha, coluna, matriz);
-    } else {
-        printf("Fim do programa!");
-        return 0;
-    }
-
-
-    /*printf("matriz escalonada: \n");
-    for (int linhaa =0; linhaa < linha; linhaa++) {
-        for (int colunaa =0; colunaa < coluna; colunaa++) {
-            printf("%.1lf  ", matriz[linhaa][colunaa]);
-        }
-        printf("\n");
-    }
-    printf("\n\n");
-
-
-    //impressao
-    printf("antes da operção: \n");
-    for (int linhaa =0; linhaa < linha; linhaa++) {
-        for (int colunaa =0; colunaa < coluna; colunaa++) {
-            printf("%.1lf  ", matriz[linhaa][colunaa]);
-        }
-        printf("\n");
-    }
-
-
-
-
-    //impressao
-    printf("Depois da operção: \n");
-    for (int linhaa =0; linhaa < linha; linhaa++) {
-        for (int colunaa =0; colunaa < coluna; colunaa++) {
-            printf("%.1lf  ", matriz[linhaa][colunaa]);
-        }
-        printf("\n");
-    }
-
-
-
-
-    return 0;
-}
-*/
