@@ -1,7 +1,4 @@
-
 #include <stdio.h>
-#include <string.h>
-
 #include "autovalores_vetores.h"
 #include "det_bases.h"
 #include "diagonalizacao_matriz.h"
@@ -9,10 +6,17 @@
 #include "telas.h"
 #include "transformacoes.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 
 int main() {
-    char menu_principal[29];// tem que ser 29 por conta do \0 e 28 é
-    // pra ficar no meio
+    #ifdef _WIN32
+        // Define a página do código de saída do console para UTF-8
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+    #endif
 
 
     int escolha;
@@ -23,7 +27,7 @@ int main() {
         scanf("%d", &escolha);
         switch (escolha) {
             case 1:
-                void loading();
+                loading();
 
                 do{
                 limpaTela();
@@ -38,7 +42,7 @@ int main() {
                 break;
 
             case 2:
-                void loading();
+                loading();
 
                 do{
                 limpaTela();
@@ -54,7 +58,7 @@ int main() {
 
 
             case 3:
-                void loading();
+                loading();
 
 
                 do{
@@ -70,7 +74,7 @@ int main() {
                 break;
 
             case 4:
-                void loading();
+                loading();
 
                 nome = 4;
                 do{
@@ -87,7 +91,7 @@ int main() {
                 break;
 
             case 5:
-                void loading();
+                loading();
 
                 nome = 5;//esse é o nome que vai aparecer lá em cima
                 do{

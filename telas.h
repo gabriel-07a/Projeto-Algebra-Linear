@@ -40,7 +40,7 @@ void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, 
 //telas para diagonalização de matrizes
 void menuDiagonalizacao2x2(double lambda[2]);
 
-void print_with_padding(double num, int width);
+void printa_com_espacos(double num, int largura);
 void limpaTela();
 void menuPrincipal();
 

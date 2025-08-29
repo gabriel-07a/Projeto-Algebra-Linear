@@ -59,16 +59,16 @@ void verifica_transformacoes(Matriz matriz, int r_inicial, int r_final) {
 
     //agr é só ver se tem o msm tanto de pivos e colunas
     if (matriz.colunas == quant_pivos) {
-        printf("Eh injetora!\n", r_inicial, r_final);
+        printf("Eh injetora!\n");
     }else {
-        printf("Nao é injetora!\n", r_inicial, r_final);
+        printf("Nao é injetora!\n");
     }
 
 
     if (matriz.linhas == quant_pivos) {
-        printf("Eh sobrejetora!\n", r_inicial, r_final);
+        printf("Eh sobrejetora!\n");
     }else {
-        printf("Nao é sobrejetora!\n", r_inicial, r_final);
+        printf("Nao é sobrejetora!\n");
     }
 
     if (matriz.linhas == quant_pivos && matriz.colunas == quant_pivos) {

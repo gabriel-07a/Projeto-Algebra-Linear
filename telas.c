@@ -7,9 +7,13 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <unistd.h> // Para usleep()
-
 #include "struct_matriz.h"
+
+#ifdef _WIN32
+    #include <windows.h> // Para Sleep()
+#else
+    #include <unistd.h>  // Para usleep()
+#endif
 
 /**/
 //CORES DE TEXTO
@@ -23,21 +27,17 @@
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
-//CORES DE FUNDO
-#define BG_BLACK   "\x1b[40m"
-#define BG_RED     "\x1b[41m"
-#define BG_GREEN   "\x1b[42m"
-#define BG_YELLOW  "\x1b[43m"
-#define BG_BLUE    "\x1b[44m"
-#define BG_MAGENTA "\x1b[45m"
-#define BG_CYAN    "\x1b[46m"
-#define BG_WHITE   "\x1b[47m"
 
-/**/
-//qqr coisa o trem pra cancelar tudo tá aqkk
-
+void limpaTela() {
+#ifdef _WIN32
+    system("cls"); // Windows
+#else
+    system("clear"); // Linux e Mac
+#endif
+}
 
 void loading() {
+
     limpaTela();
     char *bloco_solido = "\u2588";
     for (int i = 0; i < 10; i++) {
@@ -47,11 +47,15 @@ void loading() {
     for (int i = 0; i < 20; i++) { printf(" "); }
 
     for (int i = 0; i < 2; i++) {
-        for (int i = 0; i < 60; i++) {
-            printf(BLACK"%s"RESET, bloco_solido);
+        for (int i = 0; i < 30; i++) {
+            printf(WHITE"%s"RESET, bloco_solido);
 
             fflush(stdout);
-            usleep(25000); // isso muda o tempo
+            #ifdef _WIN32
+                        Sleep(25); // No Windows, a função Sleep() aceita milissegundos
+            #else
+                        usleep(5 * 1000); // No Linux/macOS, usleep() aceita microssegundos
+            #endif
         }
     }
     printf("\n");
@@ -60,15 +64,8 @@ void loading() {
     }
 }
 
-// se bugar é só apagar aq é fingir que nao rolo ndkkkk
 
-/*
-void loading(){
 
-}
-*/
-//linha 138 precisa de ajuste
-//tem que tratar os titulos pq eu fui animal e coloquei como se começasse em 1
 char titulos[6][30];
 
 
@@ -78,28 +75,31 @@ char titulos[6][30];
 
 /*esse "width está relacionado a largura que eu determinei "-" para cada numero
 oq vai funcionar bem até numeros menores que 1k"*/
-void print_with_padding(double num, int width) {
-    char buffer[20]; // Um buffer temporário para a string
-    int chars_printed = snprintf(buffer, sizeof(buffer), "%.2lf", num);
+void printa_com_espacos(double num, int largura) {
+    //cria um buffer temporario
+    //vai servir como o lugar em que vai ser colocado o texto
+    char buffer[20];
+    //a função snprintf é um tipo de printf que escreve a string no buffer em vez da tela
+    //por isso a varivavel buffer
+    //nesse caso ela vai formatar o numero com 1 casa decimal e retornar a quantidade de caracteres para a variavel
+    int quant_caracteres = snprintf(buffer, sizeof(buffer), "%.1lf", num);
 
     // Calcula os espaços a serem adicionados
-    int padding = width - chars_printed;
+    //agora é pego a largura total que eu quero para a string e subtraio pela largura total que deu o número de entrada
+    int quant_de_espacos_em_branco = largura - quant_caracteres;
 
     // Imprime o alinhamento
     printf("|");
-    for (int i = 0; i < padding; i++) {
+
+
+    for (int i = 0; i < quant_de_espacos_em_branco-2; i++) {
         printf(" ");
     }
     printf("%.1lf", num);
+    printf("  ");
 }
 
-void limpaTela() {
-#ifdef _WIN32
-    system("cls"); // Windows
-#else
-    system("clear"); // Linux e Mac
-#endif
-}
+
 
 void exibir_tela_estatica(char* nome_tela) {
     limpaTela();
@@ -141,14 +141,26 @@ void exibir_tela_estatica(char* nome_tela) {
 
 }
 
+
+void verificador(int count, double vetor[]){
+    for(int i = 0; i < 7;i++){
+        vetor[i]=0;
+    }
+}
+
+
 //
 //Telas para Sistemas Lineares
 //
 
 
-
+double vetor_para_imprimir_a_matriz_2x2[7];
 
 void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
+    for (int i = 0; i < 7; i++) {
+        vetor_para_imprimir_a_matriz_2x2[i] = 0.0;
+    }
+
     double numero, count=0;
     for(int i = 0; i < 2; i++) {
         for(int j = 0; j < 3; j++) {
@@ -157,15 +169,18 @@ void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
             numero = matriz->dados[i][j];
             tela_para_popular_matriz_2x2(numero,nome, count);
             count++;
+            if(count == 6){
+                verificador(count,vetor_para_imprimir_a_matriz_2x2);
+            }
         }
     }
 }
 void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
-    //eu preciso de um trem para verificar dps se isso é maior que 5
+     //eu preciso de um trem para verificar dps se isso é maior que 5
      //isso serve para montar certo a matriz.
-    double vetor_para_imprimir_a_matriz[7];
+
     limpaTela();
-    vetor_para_imprimir_a_matriz[count] = numeroMatriz;
+    vetor_para_imprimir_a_matriz_2x2[count] = numeroMatriz;
 
 
     //fica meio bugadinho vendo aqui mas na hora de printar vai dar certo. que ele vai reservar
@@ -181,16 +196,16 @@ void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
     printf("║                                                                                                  ║\n");
     printf("║                                   +-------+-------+-------+                                      ║\n");
     printf("║                                   ");
-    print_with_padding(vetor_para_imprimir_a_matriz[0], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[1], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[2], 8);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_2x2[0], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_2x2[1], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_2x2[2], 7);
     printf("|                                      ║\n");
 
     printf("║                                   +-------+-------+-------+                                      ║\n");
     printf("║                                   ");
-    print_with_padding(vetor_para_imprimir_a_matriz[3], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[4], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[5], 8);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_2x2[3], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_2x2[4], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_2x2[5], 7);
     printf("|                                      ║\n");
 
     printf("║                                   +-------+-------+-------+                                      ║\n");
@@ -208,7 +223,14 @@ void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
 
 
 //essa vai servir para popular 3x3
+
+double vetor_para_imprimir_a_matriz_3x3[13];
+
 void funcao_para_popular_matriz_3x3(Matriz *matriz, int nome) {
+    for (int i = 0; i < 7; i++) {
+        vetor_para_imprimir_a_matriz_3x3[i] = 0.0;
+    }
+
     double numero, count =0;
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 4; j++) {
@@ -222,9 +244,10 @@ void funcao_para_popular_matriz_3x3(Matriz *matriz, int nome) {
 
 }
 void tela_para_popular_matriz_3x3(double numeroMatriz, int nome, int count) {
+
     limpaTela();
-    double vetor_para_imprimir_a_matriz[13];
-    vetor_para_imprimir_a_matriz[count] = numeroMatriz;
+
+    vetor_para_imprimir_a_matriz_3x3[count] = numeroMatriz;
 
     // Header da tela
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
@@ -240,28 +263,28 @@ void tela_para_popular_matriz_3x3(double numeroMatriz, int nome, int count) {
     // Linha 1 da matriz
     printf("║                                 +-------+-------+-------+-------+                                ║\n");
     printf("║                                 ");
-    print_with_padding(vetor_para_imprimir_a_matriz[0], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[1], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[2], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[3], 8);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[0], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[1], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[2], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[3], 7);
     printf("|                                ║\n");
 
     // Linha 2 da matriz
     printf("║                                 +-------+-------+-------+-------+                                ║\n");
     printf("║                                 ");
-    print_with_padding(vetor_para_imprimir_a_matriz[4], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[5], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[6], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[7], 8);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[4], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[5], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[6], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[7], 7);
     printf("|                                ║\n");
 
     // Linha 3 da matriz
     printf("║                                 +-------+-------+-------+-------+                                ║\n");
     printf("║                                 ");
-    print_with_padding(vetor_para_imprimir_a_matriz[8], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[9], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[10], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[11], 8);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[8], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[9], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[10], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_3x3[11], 7);
     printf("|                                ║\n");
 
     printf("║                                 +-------+-------+-------+-------+                                ║\n");
@@ -283,6 +306,7 @@ void tela_para_popular_matriz_3x3(double numeroMatriz, int nome, int count) {
 
 
 void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz) {
+
     exibir_tela_estatica("verificacao_injetividade_pegar_transformacoes");
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
@@ -302,12 +326,13 @@ void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz
 
 
 void tela_para_resultado_da_determinante(int numero) {
+
     limpaTela();
-    char resultado[30];
+    char resultado[70];
     if (numero == 1) {
-        strcpy(resultado, "Formam base determinante != 0    ");
+        strcpy(resultado, "Formam base determinante         ");
     }else {
-        strcpy(resultado, "Não formam Base determinante = 0 ");
+        strcpy(resultado, "Não formam Base determinante     ");
     }
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
@@ -341,8 +366,12 @@ void tela_para_resultado_da_determinante(int numero) {
 //telas para autovalores e autovetores
 //
 
+double vetor_para_imprimir_a_matriz_para_autovalores[5];
 
 void funcao_para_polular_matrizez_para_autovalores(Matriz *matriz,int nome){
+    for (int i = 0; i < 7; i++) {
+        vetor_para_imprimir_a_matriz_para_autovalores[i] = 0.0;
+    }
     double numero, count=0;
     for(int i = 0; i < 2; i++) {
         for(int j = 0; j < 2; j++) {
@@ -355,9 +384,8 @@ void funcao_para_polular_matrizez_para_autovalores(Matriz *matriz,int nome){
     }
 }
 void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, int count) {
-    double vetor_para_imprimir_a_matriz[5];
     limpaTela();
-    vetor_para_imprimir_a_matriz[count] = numeroMatriz;
+    vetor_para_imprimir_a_matriz_para_autovalores[count] = numeroMatriz;
 
 
     //fica meio bugadinho vendo aqui mas na hora de printar vai dar certo. que ele vai reservar
@@ -373,14 +401,14 @@ void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, 
     printf("║                                                                                                  ║\n");
     printf("║                                     +-------+-------+                                            ║\n");
     printf("║                                     ");
-    print_with_padding(vetor_para_imprimir_a_matriz[0], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[1], 8);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_para_autovalores[0], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_para_autovalores[1], 7);
     printf("|                                            ║\n");
 
     printf("║                                     +-------+-------+                                            ║\n");
     printf("║                                     ");
-    print_with_padding(vetor_para_imprimir_a_matriz[2], 8);
-    print_with_padding(vetor_para_imprimir_a_matriz[4], 8);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_para_autovalores[2], 7);
+    printa_com_espacos(vetor_para_imprimir_a_matriz_para_autovalores[4], 7);
     printf("|                                            ║\n");
 
     printf("║                                     +-------+-------+                                            ║\n");
@@ -397,6 +425,7 @@ void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, 
 }
 
 void tela_para_resultado_de_autovalore_vetores(double lambda[2], Matriz autovetores) {
+
     limpaTela();
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
@@ -442,6 +471,7 @@ void tela_para_resultado_de_autovalore_vetores(double lambda[2], Matriz autoveto
 
 
 void menuDiagonalizacao2x2(double lambda[2]) {
+
     limpaTela();
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
