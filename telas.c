@@ -38,26 +38,29 @@
 
 
 void loading() {
+    
     limpaTela();
     char *bloco_solido = "\u2588";
     for (int i = 0; i < 10; i++) {
         printf("\n");
     }
     // falta o espaço aq
-    for (int i = 0; i < 20; i++) { printf(" "); }
+    for (int i = 0; i < 10; i++) { printf(" "); }
 
     for (int i = 0; i < 2; i++) {
-        for (int i = 0; i < 60; i++) {
-            printf(BLACK"%s"RESET, bloco_solido);
-
+        for (int i = 0; i < 40; i++) {
+            printf(WHITE"%s"RESET, bloco_solido);
+           // printf("X");
             fflush(stdout);
-            usleep(25000); // isso muda o tempo
+
+            usleep(15000); // isso muda o tempo
         }
     }
     printf("\n");
     for (int i = 0; i < 10; i++) {
         printf("\n");
     }
+        
 }
 
 // se bugar é só apagar aq é fingir que nao rolo ndkkkk
@@ -92,6 +95,10 @@ void print_with_padding(double num, int width) {
     }
     printf("%.1lf", num);
 }
+
+
+
+
 
 void limpaTela() {
 #ifdef _WIN32
@@ -148,6 +155,8 @@ void exibir_tela_estatica(char* nome_tela) {
 
 
 
+double vetor_para_imprimir_a_matriz[7];
+ 
 void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
     double numero, count=0;
     for(int i = 0; i < 2; i++) {
@@ -157,17 +166,27 @@ void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
             numero = matriz->dados[i][j];
             tela_para_popular_matriz_2x2(numero,nome, count);
             count++;
+            if(count == 6){
+                verificador(count,vetor_para_imprimir_a_matriz);
+            }
         }
     }
 }
+void verificador(int count, double vetor[]){
+    for(int i = 0; i < 7;i++){
+        vetor[i]=0; 
+       }
+}
+
 void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
     //eu preciso de um trem para verificar dps se isso é maior que 5
      //isso serve para montar certo a matriz.
-    double vetor_para_imprimir_a_matriz[7];
+    
     limpaTela();
     vetor_para_imprimir_a_matriz[count] = numeroMatriz;
 
-
+   
+    
     //fica meio bugadinho vendo aqui mas na hora de printar vai dar certo. que ele vai reservar
     // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
@@ -203,7 +222,6 @@ void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
 
     printf("\n");
     printf("====================================================================================================\n");
-
 }
 
 
@@ -300,10 +318,9 @@ void funcao_para_pegar_as_transformacoes(int linhas, int colunas, Matriz *matriz
 //
 
 
-
 void tela_para_resultado_da_determinante(int numero) {
     limpaTela();
-    char resultado[30];
+    char resultado[60];
     if (numero == 1) {
         strcpy(resultado, "Formam base determinante != 0    ");
     }else {

@@ -16,6 +16,8 @@ void exibir_tela_estatica(char* nome_tela);
 void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome);
 void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count);
 
+void verificador(int count, double vetor[]);
+
 void funcao_para_popular_matriz_3x3(Matriz *matriz, int nome);
 void tela_para_popular_matriz_3x3(double numeroMatriz, int nome, int count);
 
