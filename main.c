@@ -12,11 +12,23 @@
 
 
 int main() {
+<<<<<<< HEAD
     #ifdef _WIN32
         // Define a página do código de saída do console para UTF-8
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
     #endif
+=======
+    // Adicione estas linhas NO COMEÇO da sua função main
+#ifdef _WIN32
+    // Define a página de código de saída do console para UTF-8
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
+
+    char menu_principal[29];// tem que ser 29 por conta do \0 e 28 é
+    // pra ficar no meio
+>>>>>>> 3daf19ef52053390e751d0b6b57111e4e9dc75e8
 
 
     int escolha;
@@ -28,7 +40,10 @@ int main() {
         switch (escolha) {
             case 1:
                 loading();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3daf19ef52053390e751d0b6b57111e4e9dc75e8
                 do{
                 limpaTela();
 
