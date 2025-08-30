@@ -28,6 +28,7 @@
 #define RESET   "\x1b[0m"
 
 
+//limpa a tela de acordo com o SO
 void limpaTela() {
     #ifdef _WIN32
         system("cls"); // Windows
@@ -36,14 +37,14 @@ void limpaTela() {
     #endif
 }
 
+//faz uma breve animação de loading na tela
 void loading() {
-
     limpaTela();
+    //o bloco usado para simular o loading
     char *bloco_solido = "\u2588";
     for (int i = 0; i < 10; i++) {
         printf("\n");
     }
-    // falta o espaço aq
     for (int i = 0; i < 20; i++) { printf(" "); }
 
     for (int i = 0; i < 2; i++) {
@@ -52,9 +53,9 @@ void loading() {
 
             fflush(stdout);
             #ifdef _WIN32
-                        Sleep(25); // No Windows, a função Sleep() aceita milissegundos
+                        Sleep(20); // No Windows, a função Sleep() aceita milissegundos
             #else
-                        usleep(5 * 1000); // No Linux/macOS, usleep() aceita microssegundos
+                        usleep(20 * 1000); // No Linux/macOS, usleep() aceita microssegundos
             #endif
         }
     }
@@ -66,12 +67,8 @@ void loading() {
 
 
 
-char titulos[6][30];
-
-
-
-
-
+//função para printar os números entre espaços
+//essa função é usada para as telas que têm animação ao popular a matriz
 void printa_com_espacos(double num, int largura) {
     //cria um buffer temporario
     //vai servir como o lugar em que vai ser colocado o texto
@@ -85,10 +82,8 @@ void printa_com_espacos(double num, int largura) {
     //agora é pego a largura total que eu quero para a string e subtraio pela largura total que deu o número de entrada
     int quant_de_espacos_em_branco = largura - quant_caracteres;
 
-
     // Imprime o alinhamento
     printf("|");
-
 
     for (int i = 0; i < quant_de_espacos_em_branco-2; i++) {
         printf(" ");
@@ -98,39 +93,49 @@ void printa_com_espacos(double num, int largura) {
 }
 
 
-
+//função usada para imprimir as telas estaticas de menus
+//usa o arquivo telas_menu.txt para ler e imprimir a tela selecionada
 void exibir_tela_estatica(const char* nome_tela) {
     limpaTela();
+    //cria uma variavel do tipo FILE
     FILE *arquivo;
+    //variavel para ler as linhas
     char linha[200];
+    //variavel para procurar a tela
     char tela_procurada[100];
+    //variavel para dizer se a tela foi encontrada
     int tela_encontrada =0;
 
+    //o sprintf pega a varivel nome_tela, junta dentro desse string e armazena essa junção dentro
+    //da variavel tela_procurada
     sprintf(tela_procurada, "{Tela:%s}\n", nome_tela);
-
+    //esse o arquivo como entrada
     arquivo = fopen("telas_menu.txt", "r");
+    //se a entrada do arquivo foi nula retorna erroa
     if (arquivo == NULL) {
         perror("Erro ao abrir o arquivo: telas_menu.txt");
         return;
     }
-
     limpaTela();
+    //lê as linhas do arquivo
     while (fgets(linha, sizeof(linha), arquivo) != NULL) {
         if (tela_encontrada == 1) {
-            // ...verificamos se a linha atual é o começo de OUTRA tela.
-            // A função strstr verifica se uma string contém outra.
+            // verifica se a linha atual é o começo de outra tela
+            //a função strstr verifica se uma string contém outra
             if (strstr(linha, "{Tela:") != NULL) {
                 break; // Se for, paramos de imprimir
             }
-            // Se não for o começo de outra tela, apenas imprimimos a linha.
+            //se não for o começo de outra tela, apenas imprimimos a linha
             printf("%s", linha);
         }
-        // Se ainda não encontramos a nossa tela...
+        //se ainda não achou a tela
         else {
-            // ...verificamos se a linha atual é a tag que procuramos.
-            // A função strcmp compara duas strings. Retorna 0 se forem iguais.
+            //ai ele verifica se a linha atual é a tag que procurada
+            //a função strcmp compara duas strings e retorna 0 se elas forem iguais
             if (strcmp(linha, tela_procurada) == 0) {
-                tela_encontrada = 1; // Encontramos! Na próxima iteração, começaremos a imprimir.
+                //se a linha que está lindo lida no momento for igual a tela procurada
+                //ele atribui 1 a tela encotrada
+                tela_encontrada = 1;
             }
         }
     }
@@ -140,11 +145,6 @@ void exibir_tela_estatica(const char* nome_tela) {
 }
 
 
-void verificador(int count, double vetor[]){
-    for(int i = 0; i < 7;i++){
-        vetor[i]=0;
-    }
-}
 
 
 //
@@ -168,15 +168,12 @@ void funcao_para_polular_matriz_2x2(Matriz *matriz,int nome){
             numero = matriz->dados[i][j];
             tela_para_popular_matriz_2x2(numero,nome, count);
             count++;
-            if(count == 6){
-                verificador(count,vetor_para_imprimir_a_matriz_2x2);
-            }
+
         }
     }
 }
 void tela_para_popular_matriz_2x2(double numeroMatriz, int nome, int count) {
-     //eu preciso de um trem para verificar dps se isso é maior que 5
-     //isso serve para montar certo a matriz.
+
 
     limpaTela();
     vetor_para_imprimir_a_matriz_2x2[count] = numeroMatriz;
@@ -387,10 +384,6 @@ void funcao_para_polular_matrizez_para_autovalores(Matriz *matriz,int nome){
 void tela_para_popular_matrizes_para_autovalores(double numeroMatriz, int nome, int count) {
     limpaTela();
     vetor_para_imprimir_a_matriz_para_autovalores[count] = numeroMatriz;
-
-
-    //fica meio bugadinho vendo aqui mas na hora de printar vai dar certo. que ele vai reservar
-    // tem 98 "="
     printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║                                                                                                  ║\n");
     printf("║                                         Matriz 2x2                                               ║\n");
