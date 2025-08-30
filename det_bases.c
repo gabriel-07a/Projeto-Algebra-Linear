@@ -74,7 +74,7 @@ void resolver_determinacao() {
         //chama a função para calcular a determinante e armazena ela na variavel
         res_da_determinante = calcular_determinante(&matriz);
         //decide se, a partir do resultado da determinante, é possível formar uma base ou não
-        if(res_da_determinante > fabs(EPS)) {
+        if((fabs(res_da_determinante)) > EPS) {
             tela_para_resultado_da_determinante(1);
         }else {
             tela_para_resultado_da_determinante(0);
@@ -120,7 +120,7 @@ void transformar_vetor_em_matriz(Matriz *matriz) {
 double calcular_determinante(Matriz *matriz) {
     //cria as variaveis para receber a soma principal e secundaria
     //que somente são usadas para calcular a determinante de matrizes 3x3
-    double det, soma_principal, soma_secundaria;
+    double det=0.0, soma_principal=0.0, soma_secundaria=0.0;
     //se a matriz for 2 por 2 ele faz o calculo da determinante
     //que nesse caso é mais facil por a matriz ser dois por dois
     if(matriz->linhas == 2) {
